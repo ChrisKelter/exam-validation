@@ -1,0 +1,10 @@
+ @RequestMapping(
+            value = {
+                    "/{path:^(?!api|static|assets|favicon\\.ico|logo\\.png).*$}",
+                    "/**/{path:^(?!api|static|assets|favicon\\.ico|logo\\.png).*$}"
+            },
+            method = RequestMethod.GET
+    )
+    public String forwardToIndex() {
+        return "forward:/index.html";
+    }
