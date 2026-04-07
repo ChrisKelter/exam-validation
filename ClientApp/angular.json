@@ -14,7 +14,8 @@
           "builder": "@angular/build:application",
           "options": {
             "outputPath": {
-              "base": "dist/exam-validation"
+              "base": "../src/main/resources/static",
+              "browser": ""
             },
             "index": "src/index.html",
             "polyfills": [
@@ -59,6 +60,9 @@
         },
         "serve": {
           "builder": "@angular/build:dev-server",
+          "options": {
+            "proxyConfig": "src/proxy.conf.json"
+          },
           "configurations": {
             "production": {
               "buildTarget": "ExamValidation:build:production"
