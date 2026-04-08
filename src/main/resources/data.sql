@@ -1,0 +1,1 @@
+INSERT INTO APP_user (ID, USERNAME, PASSWORD, AUTHORITIES) VALUES ('test-01', 'admin', '$2a$10$DAG/wOAS0MU/egnCqlG4YOITO7ZIuGqUrsrFCrE7xPJxACwWQKl3.', 'admin::nextbike');
