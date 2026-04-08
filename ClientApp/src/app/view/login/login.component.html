@@ -1,0 +1,54 @@
+<script src="../../service/auth.service.ts"></script>
+<div class="grid place-items-center h-screen">
+  <div class="w-md">
+    <p-card header="Anmelden" subheader="Control Panel">
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <div class="w-full mt-3">
+          <p-floatlabel>
+            <input
+              id="username"
+              type="text"
+              pInputText
+              formControlName="username"
+              class="w-full"
+              autocomplete="username"
+            />
+            <label for="username">Email address</label>
+          </p-floatlabel>
+        </div>
+
+        <div class="w-full mt-6">
+          <p-floatlabel>
+            <p-password
+              inputId="password"
+              formControlName="password"
+              [feedback]="false"
+              [toggleMask]="true"
+              class="w-full"
+              inputStyleClass="w-full"
+              autocomplete="current-password">
+            </p-password>
+            <label for="password">Password</label>
+          </p-floatlabel>
+        </div>
+
+        <div class="w-full, mt-6">
+          <p-button
+            type="submit"
+            label="Sign In"
+            icon="pi pi-arrow-right"
+            iconPos="right"
+            [fluid]="true"
+            [loading]="loading"
+            [disabled]="loginForm.invalid || loading"
+            class="login-btn">
+          </p-button>
+        </div>
+
+      </form>
+    </p-card>
+  </div>
+
+</div>
+
+<p-toast></p-toast>
