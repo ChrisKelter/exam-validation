@@ -15,4 +15,20 @@ export class AuthService {
 
     return this.httpClient.post('/auth/login', httpParams)
   }
+
+  public logout(): void {
+    sessionStorage.removeItem('authData');
+  }
+
+  public get isAuthenticated(): boolean {
+    return this.authData !== null;
+  }
+
+  public get authData(): string | null {
+    return sessionStorage.getItem('authData') ?? null;
+  }
+
+  public set authData(authData: string) {
+    sessionStorage.setItem('authData', authData);
+  }
 }

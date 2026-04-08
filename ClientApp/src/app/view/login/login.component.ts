@@ -9,6 +9,7 @@ import {InputText} from "primeng/inputtext";
 import {MessageService} from "primeng/api";
 import {Toast} from "primeng/toast";
 import {AuthService} from "../../service/auth.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-login',
@@ -32,7 +33,8 @@ export class LoginComponent {
   constructor(
     private fb: FormBuilder,
     private messageService: MessageService,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) {
     this.loginForm = this.fb.group({
       username: ['', [Validators.required, Validators.minLength(4)]],
@@ -59,7 +61,9 @@ export class LoginComponent {
 
     this.authService.authenticate(username, password).subscribe({
       next: () => {
+        this.authService.authData = btoa(username + ':' + password)
         this.messageService.add({severity: 'success', summary: 'Login successfully'});
+        this.router.navigate(['/auth']);
       },
       error: err => {
         this.messageService.add({severity: 'error', summary: 'Login failed'});
