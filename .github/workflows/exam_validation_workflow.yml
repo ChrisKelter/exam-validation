@@ -81,3 +81,20 @@ jobs:
         with:
           name: spring-boot-app
           path: build/libs/*.jar
+
+  release:
+    runs-on: ubuntu-latest
+    needs: build_spring
+
+    steps:
+      - name: Download backend artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: spring-boot-app
+          path: release
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        if: github.ref_type == 'tag'
+        with:
+          files: build/libs/*.jar
