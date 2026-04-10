@@ -9,7 +9,7 @@ import {validationGuard} from "./config/validationGuard";
 export const routes: Routes = [
   {path: '', component: ValidateComponent},
   {path: 'login', component: LoginComponent},
-  {path: 'auth', component: AuthComponent, canMatch:[validationGuard],  children: [
+  {path: 'control', component: AuthComponent, canMatch:[validationGuard],  children: [
       {path: '', component: ControlPanelComponent},
       {path: 'user', component: UserManagementComponent},
     ]},

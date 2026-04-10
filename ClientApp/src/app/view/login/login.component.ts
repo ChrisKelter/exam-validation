@@ -63,7 +63,7 @@ export class LoginComponent {
       next: () => {
         this.authService.authData = btoa(username + ':' + password)
         this.messageService.add({severity: 'success', summary: 'Login successfully'});
-        this.router.navigate(['/auth']);
+        this.router.navigate(['/control']);
       },
       error: err => {
         this.messageService.add({severity: 'error', summary: 'Login failed'});
