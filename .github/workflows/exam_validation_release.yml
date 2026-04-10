@@ -5,6 +5,9 @@ on:
     tags:
       - 'v*'
 
+permissions:
+  contents: write
+
 jobs:
   release:
     runs-on: ubuntu-latest
@@ -23,4 +26,4 @@ jobs:
         with:
           files: build/libs/*.jar
         env:
-          GITHUB_TOKEN: ${{ secrets.RELEASE_TOEKN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
