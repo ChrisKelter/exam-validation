@@ -36,22 +36,27 @@ public class SecurityConfig {
 
     @Bean
     public PasswordEncoder passwordEncoder(){
-        String res = new BCryptPasswordEncoder().encode("passwd");
-
         return new BCryptPasswordEncoder();
     }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
+                .userDetailsService(userDetailsService)
                 .csrf(AbstractHttpConfigurer::disable)
                 .httpBasic(Customizer.withDefaults())
-                .authorizeHttpRequests(
-                        authorizeRequest -> authorizeRequest
-                                .requestMatchers("/test/default").hasAuthority("default")
-                                .requestMatchers("/test/admin").hasAuthority("admin")
-                                .anyRequest().permitAll()
-                )
+                .authorizeHttpRequests(authorizeRequests -> {
+                    authorizeRequests.requestMatchers("/api/auth/**").authenticated();
+                })
+                .authorizeHttpRequests(authorizeRequests -> {
+                    authorizeRequests.requestMatchers("/api/user/**").hasAuthority("admin");
+                })
+                .authorizeHttpRequests(authorizeRequests -> {
+                    authorizeRequests.requestMatchers("/api/validation/**").hasAnyAuthority("user", "admin");
+                })
+                .authorizeHttpRequests(authorizeRequests -> {
+                    authorizeRequests.anyRequest().permitAll();
+                })
                 .formLogin(formLogin ->
                         formLogin
                                 .loginPage("/auth/login")
@@ -62,6 +67,12 @@ public class SecurityConfig {
                                     response.setStatus(200);
                                 })
                                 .permitAll())
+                .logout(logout -> {
+                    logout.logoutUrl("/auth/logout");
+                    logout.logoutSuccessHandler((request, response, authentication) -> {
+                        response.setStatus(200);
+                    });
+                })
                 .headers(h -> h.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable));
         return httpSecurity.build();
     }
