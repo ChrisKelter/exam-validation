@@ -6,6 +6,7 @@ import at.oeh.uni.innsbruck.stadtrad.examValidation.model.ValidationType;
 import at.oeh.uni.innsbruck.stadtrad.examValidation.repository.ValidationRepository;
 import at.oeh.uni.innsbruck.stadtrad.examValidation.service.validation.*;
 import at.oeh.uni.innsbruck.stadtrad.examValidation.service.validation.Record;
+import at.oeh.uni.innsbruck.stadtrad.examValidation.service.validation.exception.ValidationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
