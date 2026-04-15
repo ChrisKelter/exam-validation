@@ -136,4 +136,8 @@ public class ValidationService {
             createAutomaticValidation(student, email, validUntilDate);
         }
     }
+
+    public boolean isEligible(String studentId, String email) {
+        return this.validationRepository.existsByStudentIdAndEmailAndValidUntilAfter(studentId, email, new Date());
+    }
 }

@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import java.util.List;
+import java.util.Date;
 
 public interface ValidationRepository extends JpaRepository<Validation, String> {
     boolean existsByStudentId(String string);
@@ -24,4 +24,6 @@ public interface ValidationRepository extends JpaRepository<Validation, String> 
             @Param("inputText") String inputText,
             Pageable pageable
     );
+
+    boolean existsByStudentIdAndEmailAndValidUntilAfter(String studentId, String email, Date validUntil);
 }
