@@ -28,6 +28,24 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-security-test'
 	testImplementation 'org.springframework.boot:spring-boot-starter-webmvc-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+	// PDF
+	implementation 'org.apache.pdfbox:pdfbox:2.0.30'
+
+	// DSS
+	implementation 'eu.europa.ec.joinup.sd-dss:dss-document:6.1'
+	implementation 'eu.europa.ec.joinup.sd-dss:dss-validation:6.1'
+	implementation("eu.europa.ec.joinup.sd-dss:dss-validation:6.1")
+	implementation 'eu.europa.ec.joinup.sd-dss:dss-service:6.1'
+	implementation 'eu.europa.ec.joinup.sd-dss:dss-pades:6.1'
+	implementation 'eu.europa.ec.joinup.sd-dss:dss-utils-apache-commons:6.1'
+	implementation 'eu.europa.ec.joinup.sd-dss:dss-certificate-validation-common:5.12.1'
+	implementation 'eu.europa.ec.joinup.sd-dss:dss-pades-pdfbox:6.1'
+
+	// Apache Tika
+	implementation 'org.apache.tika:tika-core:3.2.2'
+	implementation 'org.apache.tika:tika-langdetect:3.2.3'
+	implementation 'org.apache.tika:tika-langdetect-optimaize:3.2.3'
 }
 
 tasks.named('test') {

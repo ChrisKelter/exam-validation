@@ -27,4 +27,12 @@ export class ValidationService {
   public update(validation: Validation): Observable<Validation> {
     return this.httpClient.put<Validation>('/api/validation', validation);
   }
+
+  public validateFile(file: File, email: string) {
+    const formData: FormData = new FormData();
+    formData.append('file', file);
+    formData.append('email', email);
+
+    return this.httpClient.post('/validate', formData)
+  }
 }
