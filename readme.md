@@ -1,3 +1,5 @@
+![Coverage](badges/jacoco.svg)
+
 # Exam Validation System
 
 Software solution for validating exams in Innsbruck.  
