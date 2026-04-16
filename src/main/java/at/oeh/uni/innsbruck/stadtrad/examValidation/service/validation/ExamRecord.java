@@ -3,14 +3,14 @@ package at.oeh.uni.innsbruck.stadtrad.examValidation.service.validation;
 import java.time.LocalDate;
 import java.util.Objects;
 
-public class Record {
+public class ExamRecord {
     private String course;
     private LocalDate examDate;
     private int grade;
     private double sws;
     private double credits;
 
-    public Record(String course, LocalDate examDate, int grade, double sws, double credits) {
+    public ExamRecord(String course, LocalDate examDate, int grade, double sws, double credits) {
         this.course = course;
         this.examDate = examDate;
         this.grade = grade;
@@ -53,7 +53,7 @@ public class Record {
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
-        Record record = (Record) o;
+        ExamRecord record = (ExamRecord) o;
         return grade == record.grade &&
                 Double.compare(sws, record.sws) == 0 &&
                 Double.compare(credits, record.credits) == 0 &&

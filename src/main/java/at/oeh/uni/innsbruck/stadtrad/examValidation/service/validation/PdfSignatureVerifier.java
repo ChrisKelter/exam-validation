@@ -1,24 +1,12 @@
 package at.oeh.uni.innsbruck.stadtrad.examValidation.service.validation;
 
-import eu.europa.esig.dss.alert.StatusAlert;
 import eu.europa.esig.dss.diagnostic.SignatureWrapper;
-import eu.europa.esig.dss.enumerations.CertificateSourceType;
 import eu.europa.esig.dss.model.DSSDocument;
-import eu.europa.esig.dss.model.FileDocument;
 import eu.europa.esig.dss.model.InMemoryDocument;
-import eu.europa.esig.dss.pades.signature.PAdESService;
-import eu.europa.esig.dss.pades.validation.PAdESSignature;
-import eu.europa.esig.dss.policy.ValidationPolicy;
-import eu.europa.esig.dss.spi.tsl.TrustedListsCertificateSource;
 import eu.europa.esig.dss.spi.validation.CommonCertificateVerifier;
-import eu.europa.esig.dss.spi.x509.CertificateSource;
 import eu.europa.esig.dss.spi.x509.CommonTrustedCertificateSource;
-import eu.europa.esig.dss.spi.x509.KeyStoreCertificateSource;
-import eu.europa.esig.dss.spi.x509.ListCertificateSource;
 import eu.europa.esig.dss.validation.SignedDocumentValidator;
 import eu.europa.esig.dss.validation.reports.Reports;
-import eu.europa.esig.dss.xml.common.ValidatorConfigurator;
-import org.apache.pdfbox.pdmodel.PDDocument;
 
 
 import java.io.IOException;

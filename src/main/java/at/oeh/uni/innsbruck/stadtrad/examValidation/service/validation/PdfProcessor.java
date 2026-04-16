@@ -191,7 +191,7 @@ public class PdfProcessor {
         }
     }
 
-    private Record parseRecord(String lectureName, String examInfoRaw) {
+    private ExamRecord parseRecord(String lectureName, String examInfoRaw) {
         List<String> examInfo = Arrays.stream(examInfoRaw.split(" ")).toList();
 
 
@@ -205,7 +205,7 @@ public class PdfProcessor {
         int grade = parseInt(examInfo.get(4));
 
 
-        return new Record(lectureName, examDate, grade, sws, ectsCredits);
+        return new ExamRecord(lectureName, examDate, grade, sws, ectsCredits);
     }
 
     public Student extractStudent(InputStream inputStream) throws IOException {
@@ -225,7 +225,7 @@ public class PdfProcessor {
             }
 
 
-            List<Record> records = new ArrayList<>();
+            List<ExamRecord> records = new ArrayList<>();
             List<String> text = Arrays.stream(rawText.split("\\R")).toList();
 
 

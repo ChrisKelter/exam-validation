@@ -37,7 +37,7 @@ public class Util {
     }
 
     public static boolean isDateInRange(Pair<LocalDate, LocalDate> range, LocalDate date) {
-        return date.isAfter(range.getFirst()) && date.isBefore(range.getSecond());
+        return date.isAfter(range.getFirst().minusDays(1)) && date.isBefore(range.getSecond().plusDays(1));
     }
 
 }

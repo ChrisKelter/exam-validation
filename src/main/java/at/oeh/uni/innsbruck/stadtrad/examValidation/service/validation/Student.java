@@ -11,9 +11,9 @@ public class Student {
     private String lastName;
     private String matrikelNr;
     private LocalDate matriculationDate;
-    private List<Record> records;
+    private List<ExamRecord> records;
 
-    public Student(String name, String matrikelNr, LocalDate matriculationDate, List<Record> records) {
+    public Student(String name, String matrikelNr, LocalDate matriculationDate, List<ExamRecord> records) {
         this.setName(name);
         this.matrikelNr = matrikelNr;
         this.matriculationDate = matriculationDate;
@@ -39,7 +39,7 @@ public class Student {
         return matrikelNr;
     }
 
-    public List<Record> getRecords() {
+    public List<ExamRecord> getRecords() {
         return records;
     }
 
@@ -51,12 +51,12 @@ public class Student {
         LocalDate mariculationDate = getMatriculationDate();
 
         Pair<LocalDate, LocalDate> currentYear = Util.getCurrentAcademicYear();
-        Pair<LocalDate, LocalDate> lastYear = Util.getCurrentAcademicYear();
+        Pair<LocalDate, LocalDate> lastYear = Util.getPreviousAcademicYear();
 
         return Util.isDateInRange(currentYear, mariculationDate) || Util.isDateInRange(lastYear, mariculationDate);
     }
 
-    public List<Record> getRecordsInRange(Pair<LocalDate, LocalDate> range) {
+    public List<ExamRecord> getRecordsInRange(Pair<LocalDate, LocalDate> range) {
         return this.records.stream()
                 .filter(s  -> s.getExamDate() != null && Util.isDateInRange(range, s.getExamDate()))
                 .collect(Collectors.toList());

@@ -5,7 +5,10 @@ import at.oeh.uni.innsbruck.stadtrad.examValidation.model.Validation;
 import at.oeh.uni.innsbruck.stadtrad.examValidation.model.ValidationType;
 import at.oeh.uni.innsbruck.stadtrad.examValidation.repository.ValidationRepository;
 import at.oeh.uni.innsbruck.stadtrad.examValidation.service.validation.*;
-import at.oeh.uni.innsbruck.stadtrad.examValidation.service.validation.Record;
+import at.oeh.uni.innsbruck.stadtrad.examValidation.service.validation.ExamRecord;
+import at.oeh.uni.innsbruck.stadtrad.examValidation.service.validation.exception.ECTSLimitException;
+import at.oeh.uni.innsbruck.stadtrad.examValidation.service.validation.exception.PdfParseException;
+import at.oeh.uni.innsbruck.stadtrad.examValidation.service.validation.exception.SignaturInvalidException;
 import at.oeh.uni.innsbruck.stadtrad.examValidation.service.validation.exception.ValidationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -103,10 +106,10 @@ public class ValidationService {
 
     public void validateStudent(Student student) throws ValidationException {
         if (!student.isFirstYear()) {
-            List<Record> records = student.getRecordsInRange(Util.getPreviousAcademicYear());
-            double sumCredits = records.stream().mapToDouble(Record::getCredits).sum();
+            List<ExamRecord> records = student.getRecordsInRange(Util.getPreviousAcademicYear());
+            double sumCredits = records.stream().mapToDouble(ExamRecord::getCredits).sum();
             if (sumCredits <= 15.99) {
-                throw new ValidationException("Student does not have enough credits");
+                throw new ECTSLimitException("Student does not have enough credits");
             }
         }
     }
@@ -114,7 +117,7 @@ public class ValidationService {
     public void validateAndSaveRequest(MultipartFile file, String email) throws ValidationException {
         // check signature of file
         if (!verifyPdfSignature(file)) {
-            throw new ValidationException("Signature verification failed");
+            throw new SignaturInvalidException("Signature verification failed");
         }
 
         try {
@@ -122,7 +125,7 @@ public class ValidationService {
             validateStudent(student);
             createOrUpdateValidation(student, email);
         } catch (IOException e) {
-            throw new ValidationException("Failed to parse pdf");
+            throw new PdfParseException("Failed to parse pdf");
         }
     }
 
