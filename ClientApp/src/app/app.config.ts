@@ -5,7 +5,8 @@ import { routes } from './app.routes';
 import {providePrimeNG} from "primeng/config";
 import {provideAnimationsAsync} from "@angular/platform-browser/animations/async";
 import Aura from '@primeuix/themes/aura';
-import {provideHttpClient} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, provideHttpClient, withInterceptors, withInterceptorsFromDi} from "@angular/common/http";
+import {BasicAuthInterceptor} from "./config/BasicAuthInterceptor";
 
 
 export const appConfig: ApplicationConfig = {
@@ -18,6 +19,11 @@ export const appConfig: ApplicationConfig = {
         preset: Aura
       }
     }),
-    provideHttpClient()
+    provideHttpClient(withInterceptorsFromDi()),
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: BasicAuthInterceptor,
+      multi: true
+    }
   ]
 };

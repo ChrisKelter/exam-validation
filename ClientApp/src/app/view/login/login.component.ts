@@ -18,7 +18,6 @@ import {Router} from "@angular/router";
     Card,
     FloatLabel,
     Password,
-    Checkbox,
     Button,
     ReactiveFormsModule,
     InputText,

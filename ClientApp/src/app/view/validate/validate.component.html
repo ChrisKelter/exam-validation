@@ -1,1 +1,169 @@
-<p>validate works!</p>
+<div class="min-h-screen bg-gradient-to-br from-blue-50 via-white to-gray-100 flex items-center justify-center p-6">
+
+  <div class="w-full max-w-3xl">
+
+    <!-- Header -->
+    <div class="text-center mb-6">
+      <h1 class="text-2xl md:text-3xl font-bold text-gray-800 tracking-tight">
+        Nachweis für Stadtrad Innsbruck
+      </h1>
+      <p class="text-gray-500 mt-1">
+        der ÖH Innsbruck
+      </p>
+    </div>
+
+    <!-- Card -->
+    <p-card class="shadow-2xl border border-gray-100 rounded-2xl">
+
+      <form class="flex flex-col gap-6" [formGroup]="validationForm">
+
+        <!-- Info Box -->
+        <div class="bg-blue-50 border border-blue-100 text-blue-900 p-4 rounded-xl text-sm leading-relaxed">
+          <p class="font-semibold mb-1">Voraussetzungen</p>
+          <ul class="list-disc pl-5 space-y-1">
+            <li>16 ECTS-AP im vorherigen Studienjahr</li>
+            <li>Im ersten Studienjahr: 0 ECTS-AP (Prüfungserfolgsnachweis trotzdem erforderlich)</li>
+            <li>Amtssignierter Prüfungserfolgsnachweis via LFU:online</li>
+          </ul>
+        </div>
+
+        <!-- Upload -->
+        <div class="flex flex-col gap-2">
+          <label class="font-semibold text-gray-700">Prüfungserfolgsnachweis (PDF)</label>
+
+          <p-fileUpload
+            (onSelect)="onFileSelected($event)"
+            (onRemove)="onFileRemove($event)"
+            name="file"
+            mode="basic"
+            accept="application/pdf"
+            chooseLabel="Datei auswählen"
+            class="w-full"
+          ></p-fileUpload>
+
+          <small class="text-gray-500">
+            Nur amtssignierte PDF-Dokumente der Universität Innsbruck werden akzeptiert.
+          </small>
+        </div>
+
+        <!-- Email -->
+        <div class="flex flex-col gap-2">
+          <label class="font-semibold text-gray-700">
+            E-Mail-Adresse (@student.uibk.ac.at)
+          </label>
+
+          <input
+            pInputText
+            type="email"
+            formControlName="email"
+            class="w-full"
+          />
+
+          @if (validationForm.get('email')?.touched) {
+            <small class="text-red-500">
+
+              @if (validationForm.get('email')?.errors?.['email']) {
+                Ungültige E-Mail-Adresse
+              } @else if (validationForm.get('email')?.errors?.['uibkEmail']) {
+                Es muss eine @student.uibk.ac.at E-Mail-Adresse verwendet werden
+              }
+            </small>
+          }
+
+          <small class="text-gray-500">
+            Die E-Mail-Adresse muss der Universität Innsbruck entsprechen und
+            identisch mit jener sein, die in der nextbike App verwendet wird.
+          </small>
+
+
+        </div>
+
+        <!-- Consent -->
+        <div class="flex items-start gap-3 bg-gray-50 p-3 rounded-xl border">
+          <p-checkbox binary="true" formControlName="confirm"></p-checkbox>
+
+          <label class="text-sm text-gray-700 leading-snug">
+            Ich stimme ausdrücklich zu, dass meine personenbezogenen Daten zum Zweck
+            der Validierung sowie zum Abgleich mit nextbike verarbeitet werden,
+            um den Tarif der ÖH Innsbruck für das Stadtrad Innsbruck nutzen zu können.
+          </label>
+        </div>
+
+        <!-- Submit -->
+        <p-button
+          [disabled]="validationForm.invalid"
+          type="submit"
+          (click)="onSubmit()"
+          label="Nachweis absenden"
+          styleClass="w-full p-button-lg p-button-primary shadow-md"
+        ></p-button>
+
+        <!-- GDPR Notice (FULL VERSION) -->
+        <div class="text-xs text-gray-500 border-t pt-5 leading-relaxed space-y-3">
+
+          <p class="font-semibold text-gray-700">
+            Datenschutzhinweis gemäß DSGVO
+          </p>
+
+          <p>
+            Die ÖH Innsbruck verarbeitet die von Ihnen übermittelten personenbezogenen
+            Daten (insbesondere Matrikelnummer, E-Mail-Adresse sowie den hochgeladenen
+            Prüfungserfolgsnachweis) ausschließlich zum Zweck der Prüfung und Validierung
+            der Anspruchsberechtigung für den Tarif des Stadtrads Innsbruck.
+          </p>
+
+          <p>
+            Es werden <strong>keine Prüfungsergebnisse im Detail gespeichert</strong>.
+            Es wird ausschließlich der Status gespeichert, ob die Voraussetzungen
+            (z. B. mindestens 16 ECTS-AP im vorherigen Studienjahr bzw. 0 ECTS-AP im
+            ersten Studienjahr) erfüllt wurden.
+          </p>
+
+          <p>
+            Die Verarbeitung erfolgt auf Grundlage Ihrer Einwilligung gemäß
+            Art. 6 Abs. 1 lit. a DSGVO. Ohne diese Einwilligung ist eine Nutzung des
+            Angebots nicht möglich.
+          </p>
+
+          <p>
+            Im Falle einer positiven Validierung erfolgt ein Abgleich der notwendigen
+            Nutzungsberechtigung mit dem externen Dienstleister nextbike, um die
+            Bereitstellung des ÖH Innsbruck Tarifs für das Stadtrad Innsbruck zu ermöglichen.
+          </p>
+
+          <p>
+            Voraussetzung für die Nutzung ist die Angabe einer gültigen
+            E-Mail-Adresse der Universität Innsbruck (<strong>@student.uibk.ac.at</strong>),
+            welche auch in der nextbike-App verwendet werden muss.
+          </p>
+
+          <p>
+            Die Daten werden vertraulich behandelt, ausschließlich zweckgebunden verarbeitet
+            und nicht an unberechtigte Dritte weitergegeben.
+          </p>
+
+          <p>
+            Die Speicherdauer beträgt maximal 24 Monate. Danach werden die Daten gelöscht,
+            sofern keine gesetzlichen Aufbewahrungspflichten entgegenstehen.
+          </p>
+
+          <p>
+            Sie haben jederzeit das Recht auf Auskunft, Berichtigung, Löschung,
+            Einschränkung der Verarbeitung sowie Datenübertragbarkeit gemäß DSGVO.
+            Eine erteilte Einwilligung kann jederzeit mit Wirkung für die Zukunft
+            widerrufen werden.
+          </p>
+
+          <p>
+            Verantwortlich für die Datenverarbeitung ist die ÖH Innsbruck.
+          </p>
+
+        </div>
+
+      </form>
+
+    </p-card>
+
+  </div>
+
+</div>

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpParams} from "@angular/common/http";
+import {map, Observable} from "rxjs";
 
 @Injectable({
   providedIn: 'root',
@@ -16,8 +17,10 @@ export class AuthService {
     return this.httpClient.post('/auth/login', httpParams)
   }
 
-  public logout(): void {
-    sessionStorage.removeItem('authData');
+  public logout(): Observable<void> {
+    return this.httpClient.get<void>('/auth/logout').pipe(map(() => {
+      sessionStorage.removeItem('authData');
+    }));
   }
 
   public get isAuthenticated(): boolean {
