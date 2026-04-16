@@ -25,7 +25,6 @@ import {Password} from "primeng/password";
   imports: [
     Button,
     Card,
-    DatePicker,
     Dialog,
     FloatLabel,
     FormsModule,
