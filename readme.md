@@ -1,5 +1,5 @@
 ![Coverage](.github/badges/jacoco.svg)
-![CI](https://github.com/ChrisKelter/exam-validation/actions/workflows/ci.yml/badge.svg)
+![CI](https://github.com/ChrisKelter/exam-validation/actions/workflows/exam_validation_ci.yml/badge.svg)
 
 # Exam Validation System
 
