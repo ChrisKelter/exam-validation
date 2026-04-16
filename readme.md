@@ -1,5 +1,7 @@
-![Coverage](.github/badges/jacoco.svg)
 ![CI](https://github.com/ChrisKelter/exam-validation/actions/workflows/exam_validation_ci.yml/badge.svg)
+![Coverage](.github/badges/jacoco.svg)
+![Language](https://img.shields.io/github/languages/top/ChrisKelter/exam-validation)
+![GitHub release](https://img.shields.io/github/v/release/ChrisKelter/exam-validation)
 
 # Exam Validation System
 
