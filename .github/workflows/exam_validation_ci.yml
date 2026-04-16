@@ -49,11 +49,11 @@ jobs:
       - name: Run tests + coverage
         run: ./gradlew test jacocoTestReport
 
-      - name: Update Coverage Badge
-        uses: we-cli/coverage-badge-action@main
+      - name: Generate Coverage Badge
+        uses: cicirello/jacoco-badge-generator@v2
         with:
-          path: build/reports/jacoco/test/jacocoTestReport.xml
-          badge: coverage.svg
+          jacoco-csv-file: build/reports/jacoco/test/jacocoTestReport.csv
+          badges-directory: badges
 
   build_spring:
     runs-on: ubuntu-latest
