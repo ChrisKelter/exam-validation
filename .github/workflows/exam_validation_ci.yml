@@ -32,6 +32,8 @@ jobs:
           path: src/main/resources/static
 
   test:
+    permissions:
+      contents: write
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
