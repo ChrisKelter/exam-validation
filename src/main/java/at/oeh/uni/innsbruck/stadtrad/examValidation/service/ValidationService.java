@@ -12,6 +12,7 @@ import at.oeh.uni.innsbruck.stadtrad.examValidation.service.validation.exception
 import at.oeh.uni.innsbruck.stadtrad.examValidation.service.validation.exception.ValidationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -35,14 +36,17 @@ public class ValidationService {
         return validationRepository.save(validation);
     }
 
+    @PreAuthorize("isFullyAuthenticated() and hasAnyAuthority('admin', 'user')")
     public Page<Validation> getValidationPaged(Pageable page) {
         return this.validationRepository.findAll(page);
     }
 
+    @PreAuthorize("isFullyAuthenticated() and hasAnyAuthority('admin', 'user')")
     public Page<Validation> getValidationPaged(Pageable page, String search) {
         return this.validationRepository.findAllByFilters(search, page);
     }
 
+    @PreAuthorize("isFullyAuthenticated() and hasAnyAuthority('admin', 'user')")
     public Validation createManualValidation(ValidationDto dto) {
         Validation validation = new Validation();
         validation.setStudentId(dto.getStudentId());
@@ -54,6 +58,7 @@ public class ValidationService {
 
     public Validation createAutomaticValidation(Student student, String email, Date validUntil) {
         Validation validation = new Validation();
+        validation.setStudentId(student.getMatrikelNr());
         validation.setValidUntil(validUntil);
         validation.setEmail(email);
         validation.setType(ValidationType.AUTOMATIC);
@@ -76,6 +81,7 @@ public class ValidationService {
         return this.validationRepository.findById(studentId);
     }
 
+    @PreAuthorize("isFullyAuthenticated() and hasAnyAuthority('admin', 'user')")
     public Validation updateManualValidation(ValidationDto dto) {
         Validation validation = validationRepository.findByStudentId(dto.getStudentId());
         validation.setValidUntil(dto.getValidUntil());
@@ -85,6 +91,7 @@ public class ValidationService {
         return save(validation);
     }
 
+    @PreAuthorize("isFullyAuthenticated() and hasAnyAuthority('admin', 'user')")
     public void remove(String studentId) {
         Validation validation = validationRepository.findByStudentId(studentId);
         validationRepository.delete(validation);
@@ -141,6 +148,7 @@ public class ValidationService {
         }
     }
 
+    @PreAuthorize("isFullyAuthenticated() and hasAnyAuthority('validation')")
     public boolean isEligible(String studentId, String email) {
         return this.validationRepository.existsByStudentIdAndEmailAndValidUntilAfter(studentId, email, new Date());
     }
