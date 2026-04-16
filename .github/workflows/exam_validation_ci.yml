@@ -1,5 +1,8 @@
 name: ExamValidation CI/CD
 
+on:
+  push:
+
 
 jobs:
   build_angular:
