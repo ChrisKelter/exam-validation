@@ -2,15 +2,20 @@ plugins {
 	id 'java'
 	id 'org.springframework.boot' version '4.0.5'
 	id 'io.spring.dependency-management' version '1.1.7'
+	id 'jacoco'
 }
 
 group = 'at.oeh.uni.innsbruck.stadtrad'
-version = '0.0.1-SNAPSHOT'
+version = '1.0'
 
 java {
 	toolchain {
 		languageVersion = JavaLanguageVersion.of(21)
 	}
+}
+
+jacoco {
+	toolVersion = "0.8.11"
 }
 
 repositories {
@@ -28,8 +33,50 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-security-test'
 	testImplementation 'org.springframework.boot:spring-boot-starter-webmvc-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+	// PDF
+	implementation 'org.apache.pdfbox:pdfbox:2.0.30'
+
+	// DSS
+	implementation 'eu.europa.ec.joinup.sd-dss:dss-document:6.1'
+	implementation 'eu.europa.ec.joinup.sd-dss:dss-validation:6.1'
+	implementation("eu.europa.ec.joinup.sd-dss:dss-validation:6.1")
+	implementation 'eu.europa.ec.joinup.sd-dss:dss-service:6.1'
+	implementation 'eu.europa.ec.joinup.sd-dss:dss-pades:6.1'
+	implementation 'eu.europa.ec.joinup.sd-dss:dss-utils-apache-commons:6.1'
+	implementation 'eu.europa.ec.joinup.sd-dss:dss-certificate-validation-common:5.12.1'
+	implementation 'eu.europa.ec.joinup.sd-dss:dss-pades-pdfbox:6.1'
+
+	// Apache Tika
+	implementation 'org.apache.tika:tika-core:3.2.2'
+	implementation 'org.apache.tika:tika-langdetect:3.2.3'
+	implementation 'org.apache.tika:tika-langdetect-optimaize:3.2.3'
+
+	implementation("org.mockito:mockito-core:5.23.0")
 }
 
 tasks.named('test') {
 	useJUnitPlatform()
+}
+
+jacocoTestReport {
+	dependsOn test
+
+	reports {
+		xml.required = true
+		html.required = true
+		csv.required = true
+	}
+
+	afterEvaluate {
+		classDirectories.setFrom(
+				files(classDirectories.files.collect { fileTree(dir: it, exclude: [
+						'**/config/**',
+						'**/dto/**',
+						'**/model/**',
+						'**/exception/**',
+						'**/controller/**'
+				]) })
+		)
+	}
 }

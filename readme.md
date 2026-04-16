@@ -1,3 +1,8 @@
+![CI_build](https://github.com/ChrisKelter/exam-validation/actions/workflows/build.yml/badge.svg)
+![CI_test](https://github.com/ChrisKelter/exam-validation/actions/workflows/test.yml/badge.svg)
+![CI_Coverage](.github/badges/jacoco.svg)
+![GitHub release](https://img.shields.io/github/v/release/ChrisKelter/exam-validation)
+
 # Exam Validation System
 
 Software solution for validating exams in Innsbruck.  
