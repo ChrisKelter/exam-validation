@@ -1,4 +1,4 @@
-![Coverage](badges/jacoco.svg)
+![Coverage](.github/badges/jacoco.svg)
 
 # Exam Validation System
 
